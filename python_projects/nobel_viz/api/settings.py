@@ -4,6 +4,7 @@
 #MONGO_PORT = 27017
 #MONGO_USERNAME = 'user'
 #MONGO_PASSWORD = 'user'
+X_DOMAINS = '*'
 URL_PREFIX = 'api'
 MONGO_DBNAME = 'nobel_prize'
 DOMAIN = {'winners':{
