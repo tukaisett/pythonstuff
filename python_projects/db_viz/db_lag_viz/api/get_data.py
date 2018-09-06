@@ -1,12 +1,4 @@
-# Prerequisites: Python 2.7, Flask 0.12.2, Python-Mysql connector
-# sudo pip install Flask
-# sudo apt install python-mysqldb
-# sudo pip install -U flask-cors
 
-# Run with:
-# FLASK_APP=hello.py flask run
-
-# http://flask.pocoo.org/docs/0.12/api/#flask.request
 from flask import Flask,request
 
 # https://pypi.python.org/pypi/Flask-Cors
@@ -45,4 +37,4 @@ def getLagData():
     return json.dumps(json_data, default = myconverter)
 
 
-app.run()
+app.run(debug = True)

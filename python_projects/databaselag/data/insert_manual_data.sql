@@ -1,3 +1,4 @@
+INSERT INTO python.lag_time(timestamp_value, lagseconds) VALUES (STR_TO_DATE('7/1/2018 0:00:00', '%m/%d/%Y %H:%i:%s'), 123);
 INSERT INTO python.lag_time(timestamp_value, lagseconds) VALUES (STR_TO_DATE('7/2/2018 0:00:00', '%m/%d/%Y %H:%i:%s'), 889);
 INSERT INTO python.lag_time(timestamp_value, lagseconds) VALUES (STR_TO_DATE('7/3/2018 0:00:00', '%m/%d/%Y %H:%i:%s'), 791);
 INSERT INTO python.lag_time(timestamp_value, lagseconds) VALUES (STR_TO_DATE('7/4/2018 0:00:00', '%m/%d/%Y %H:%i:%s'), 707);
