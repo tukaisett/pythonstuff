@@ -26,7 +26,7 @@ def getLagData():
                               database='python')
 
     cursor = conn.cursor()
-    cursor.execute('select STR_TO_DATE(CONCAT(date_format(reading_date, \'%Y-%m-%d\'), \' \', reading_time), \'%Y-%m-%d %H:%i:%s\') reading_date_time, reading_lag_time FROM python.db02_lag_history WHERE reading_date BETWEEN DATE_SUB(DATE(NOW()), INTERVAL 30 DAY) AND DATE(NOW())');
+    cursor.execute('select CONCAT(date_format(reading_date, \'%Y-%m-%d\'), \' \', reading_time) reading_date_time, reading_lag_time FROM python.db02_lag_history WHERE reading_lag_time > 0 AND reading_date BETWEEN DATE_SUB(DATE(NOW()), INTERVAL 1 DAY) AND DATE(NOW())');
 
     rows = cursor.fetchall()
     row_headers=[x[0] for x in cursor.description] #this will extract row headers
@@ -37,4 +37,4 @@ def getLagData():
     return json.dumps(json_data, default = myconverter)
 
 
-app.run(debug = True)
+app.run(port=5010, debug = True)
