@@ -1,0 +1,36 @@
+html,body,#wrapper {
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+}
+
+.chart {
+	font-family: Arial, sans-serif;
+	font-size: 18px;
+}
+
+.axis path,.axis line {
+	fill: none;
+	stroke: #000;
+	shape-rendering: crispEdges;
+}
+
+.bar {
+	fill: #33b5e5;
+}
+
+.bar-red {
+	fill: #CC0000;
+}
+
+.bar-green {
+	fill: #669900;
+}
+
+.bar-blue {
+	fill: #33b5e5;
+}
+
+.bar-yellow {
+	fill: #ffbb33;
+}
