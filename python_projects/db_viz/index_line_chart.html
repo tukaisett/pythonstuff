@@ -1,49 +1,48 @@
 <!DOCTYPE html>
 <svg width="960" height="500"></svg>
+<meta charset="utf-8">
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script>
 
-var svg = d3.select("svg"),
-    margin = {top: 20, right: 20, bottom: 30, left: 50},
-    width = +svg.attr("width") - margin.left - margin.right,
-    height = +svg.attr("height") - margin.top - margin.bottom,
-    g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+//var parseTime = d3.timeFormat("%Y-%m-%d %H:%M:%S");
 
-var parseTime = d3.timeParse("%Y-%m-%d %H:%M:%S");
+var formatTime = function(input){
+    var dateParse = d3.timeParse("%Y-%m-%d %H:%M:%S");
+    //var dateFormat = d3.time.format(formatOutput);
+    return dateParse(input);
+};
 
-var x = d3.scaleTime()
-    .rangeRound([0, width]);
+console.log(formatTime("2018-08-18 00:00:39", "%Y-%m-%d %H:%M:%S"));
 
-var y = d3.scaleLinear()
-    .rangeRound([height, 0]);
+// This needs to be changed to my API request
+d3.json("http://localhost:5010/api/v1/lag_times", function(error, data) {
 
-var line = d3.line()
-    .x(function(d) { return x(d.reading_date); })
-    .y(function(d) { return y(d.reading_lag_time); });
-// reading_date,reading_time,reading_tz_adj,reading_timezone,reading_day,reading_lag_time
-// 2018-09-06,11:25:23,-0700,PDT,Thu,0
-
-
-var invocation = new XMLHttpRequest();
-var url = 'http://www.meltwaternews.com/ext/ew/reading-lag/';
-   
-function callOtherDomain() {
-  if(invocation) {    
-    invocation.open('GET', url, true);
-    invocation.onreadystatechange = handler;
-    invocation.send(); 
-  }
-}
-
-//d3.csv("http://www.meltwaternews.com/ext/ew/reading-lag/reading-lag-mag-pentaho-db02.csv", function(d) {
-d3.csv("lag_data_sept5_1549.csv", function(d) {
-  d.reading_date = parseTime(d.reading_date.substring(0,9) + ' ' + d.reading_time);
-  d.reading_lag_time = +d.reading_lag_time;
-  return d;
-}, function(error, data) {
+  console.log(data);
+  //var data = d.Data;
+  data.forEach(function(d){ 
+    d.reading_date_time = formatTime(d.reading_date_time);
+    d.reading_lag_time = +d.reading_lag_time;});
+  
+  //console.log(data);
   if (error) throw error;
 
-  x.domain(d3.extent(data, function(d) { return d.reading_date; }));
+  var svg = d3.select("svg"),
+      margin = {top: 20, right: 20, bottom: 30, left: 50},
+      width = +svg.attr("width") - margin.left - margin.right,
+      height = +svg.attr("height") - margin.top - margin.bottom,
+      g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  var x = d3.scaleTime()
+      .rangeRound([0, width]);
+
+  var y = d3.scaleLinear()
+      .rangeRound([height, 0]);
+
+  var line = d3.line()
+      .x(function(d) { return x(d.reading_date_time); })
+      .y(function(d) { return y(d.reading_lag_time); });
+      
+  x.domain(d3.extent(data, function(d) { return d.reading_date_time; }));
   y.domain(d3.extent(data, function(d) { return d.reading_lag_time; }));
 
   g.append("g")
@@ -60,15 +59,15 @@ d3.csv("lag_data_sept5_1549.csv", function(d) {
       .attr("y", 6)
       .attr("dy", "0.71em")
       .attr("text-anchor", "end")
-      .text("Lag (Secs)");
+      .text("Price ($)");
 
   g.append("path")
-      .datum(data)
+      .data(data)
       .attr("fill", "none")
       .attr("stroke", "steelblue")
       .attr("stroke-linejoin", "round")
       .attr("stroke-linecap", "round")
-      .attr("stroke-width", 4.5)
+      .attr("stroke-width", 1.5)
       .attr("d", line);
 });
 

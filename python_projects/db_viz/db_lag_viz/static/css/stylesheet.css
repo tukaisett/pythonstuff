@@ -1,9 +1,9 @@
 .line {
   fill: none;
-  stroke: darkgrey;
+  stroke: darkred;
   stroke-width: 2px;
 }
 
 .area {
-  fill: darkgrey;
+  fill: darkred;
 }

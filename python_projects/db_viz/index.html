@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+</head>
+<h1 id="output">
+</h1>
+<script>
+var f = "test.csv"
+d3.csv(f, function(d) {
+  return {
+    Name: d.Name, Surname: d.Surname, Age: d.Age,
+ };
+}, function(error, rows) {
+	d3.select("#output")
+		.text(
+			rows[0].Name + " " +
+			rows[0].Surname + " " +
+			"is " + rows[0].Age + " years old")
+});
+</script>
+</html>
