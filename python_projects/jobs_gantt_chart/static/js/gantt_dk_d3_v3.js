@@ -44,8 +44,9 @@ d3.gantt = function() {
 	  .attr('class', 'd3-tip')
 	  .offset([-10, 0])
 	  .html(function(d) {
-	    return "<samp>Duration (Mins):</samp> <span style='color:white'>" + d.jobDuration + "</span>";
+	    return "<samp>Duration:</samp> <span style='color:white'>" + d.jobDuration + "</span><br><samp>Start:</samp> <span style='color:white'>" + d.startDate + "</span><br><samp>End:</samp> <span style='color:white'>" + d.endDate + "</span>";
 	  })
+
 
 	/*d3.svg.call(tip);*/
 
@@ -87,7 +88,7 @@ d3.gantt = function() {
 	  .attr('class', 'd3-tip')
 	  .offset([-10, 0])
 	  .html(function(d) {
-	    return "<samp>Duration (Mins):</samp> <span style='color:white'>" + d.jobDuration + "</span>";
+	    return "<samp>Duration:</samp> <span style='color:white'>" + d.jobDuration + "</span><br><samp>Start:</samp> <span style='color:white'>" + d.startDate + "</span><br><samp>End:</samp> <span style='color:white'>" + d.endDate + "</span>";
 	  })
 
 
@@ -130,7 +131,16 @@ d3.gantt = function() {
 	 .call(xAxis);
 	 
 	 svg.append("g").attr("class", "y axis").transition().call(yAxis);
-	 
+
+	var mouseG = svg.append("g")
+      .attr("class", "mouse-over-effects");
+
+    mouseG.append("path") // this is the black vertical line to follow mouse
+      .attr("class", "mouse-line")
+      .style("stroke", "black")
+      .style("stroke-width", "1px")
+      .style("opacity", "0");
+
 	 return gantt;
 
     };
@@ -172,7 +182,16 @@ d3.gantt = function() {
 
 	svg.select(".x").transition().call(xAxis);
 	svg.select(".y").transition().call(yAxis);
-	
+
+	var mouseG = svg.append("g")
+      .attr("class", "mouse-over-effects");
+
+    mouseG.append("path") // this is the black vertical line to follow mouse
+      .attr("class", "mouse-line")
+      .style("stroke", "black")
+      .style("stroke-width", "1px")
+      .style("opacity", "0");
+
 	return gantt;
     };
 

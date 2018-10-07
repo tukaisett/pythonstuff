@@ -73,8 +73,7 @@ function example_redraw() {
 		    "endDate" : new Date(json[i]["etl_process_end_time"]),
 		    "taskName" : processName,
 		    "status" : processStatus,
-		    "jobDuration" : new Number(json[i]["duration_mins"]),
-		    "concurrentJobs" : json[i]["concurrent_jobs"]
+		    "jobDuration" : new Number(json[i]["duration_mins"])
 		});
 	 
 	}
